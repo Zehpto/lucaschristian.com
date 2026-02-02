@@ -64,6 +64,12 @@
     @apply text-emerald-400 hover:text-emerald-300 transition-colors underline decoration-emerald-400/30 hover:decoration-emerald-400;
   }
 
+  /* Button links - prevent visited state color change */
+  a.bg-emerald-500,
+  a.bg-emerald-500:visited {
+    color: black !important;
+  }
+
   /* Paragraphs */
   .prose p {
     @apply mb-6 leading-relaxed;
