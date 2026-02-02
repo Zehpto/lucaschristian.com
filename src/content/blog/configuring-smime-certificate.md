@@ -35,6 +35,8 @@ When filling out this form it is important to select a strong password for the f
 
 Next, an email from `secureemail@comodogroup.com` should arrive within a few minutes with details on how to retrieve your certificate.
 
+![Email Verification](/images/smime/email_verification.png)
+
 1. You should then click the red box labelled: **Click & Install Comodo Email Certificate**
 
 A file called `user.crt` should automatically download. It is important to keep track of files from here on out in the write-up, you do not want these files to be littered around your file system to make it easier for a malicious party to stumble onto them. I suggest storing all S/MIME data on an encrypted USB drive or Password Manager.
@@ -45,9 +47,13 @@ A file called `user.crt` should automatically download. It is important to keep 
 
 4. Under the **Your Certificates** tab, select **Import...** change from "PKCS12 Files" to "Certificate Files" in the window dropdown and navigate to your newly downloaded `user.crt` file.
 
+![Certificate Backup](/images/smime/cert_backup.png)
+
 5. Once imported, select the certificate from the table and choose **Backup**.
 
 You will want to backup the PKCS12 certificate to the directory you placed `user.crt`. Create a strong Certificate Backup Password (different than that of the previous revocation Password with Comodo).
+
+![Backup Password](/images/smime/backup_password.png)
 
 This section took our downloaded cert and converted it to a format that could be imported and used by a mail client (CRT → PKCS12).
 
@@ -63,8 +69,12 @@ Now that your certificate has successfully been exported as a PKCS12 file we nee
 
 3. We then **Import** our PKCS12 certificate under the **Your Certificates** tab. You will be prompted to enter the Certificate Backup Password you set in the last section.
 
+![Thunderbird Cert Manager](/images/smime/cert_manager.png)
+
 4. Once added, leave the Certificate Manager window and select the newly imported certificate from the certificate store for both **Digital Signing** and **Encryption**.
 
 5. Ensure the box labelled "Digitally sign messages", is checked. Also make sure the radio button for "Default encryption setting when sending messages" is set to _**NEVER**_.
+
+![Security Window](/images/smime/security_window.png)
 
 **NOTE: By default all emails will be signed by you, however, the email can only be encrypted if both parties are using S/MIME AND both parties have previously exchanged public keys.**

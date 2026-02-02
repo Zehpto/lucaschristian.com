@@ -11,31 +11,55 @@ For the challenge, we are provided a packet capture with roughly thirty-two thou
 
 ## Initial Analysis
 
-After a brief opportunity to analyze the packets in Wireshark, we can see there is anomalous DNS traffic. When filtering on DNS traffic in Wireshark, the packet capture becomes much more manageable with only 178 interesting packets. From here we can notice a pattern. There are suspicious queries for odd subdomains of many well-known websites. After a quick glance at the subdomain field, we can correctly identify the strings to be encoded with Base64. This strongly suggests DNS tunneling between the client and the DNS server.
+After a brief opportunity to analyze the packets in Wireshark, we can see there is anomalous DNS traffic (Figure 1). When filtering on DNS traffic in Wireshark, the packet capture becomes much more manageable with only 178 interesting packets. From here we can notice a pattern. There are suspicious queries for odd subdomains of many well-known websites. After a quick glance at the subdomain field, we can correctly identify the strings to be encoded with Base64. This strongly suggests DNS tunneling between the client and the DNS server.
 
-It is at this point where many participants encountered the first major hurdle of the challenge. Instead of instinctively concatenating the Base64 which decodes to nothing useful, we must first analyze the strings individually.
+**Figure 1: Anomalous DNS Traffic**
+![Anomalous DNS Traffic](/images/ists_16_ctf/anomalous_dns_traffic.png)
+
+It is at this point where many participants encountered the first major hurdle of the challenge. Instead of instinctively concatenating the Base64 which decodes to nothing useful, we must first analyze the strings individually (Figure 2).
+
+**Figure 2: Base64 String Extraction**
+![Base64 String Extraction](/images/ists_16_ctf/base64_string_extraction.png)
 
 ## Reversing Base64 Strings
 
-When we look at the strings closely we notice some have the padding (equal signs) in the leading section of the string. In Base64, the padding is only found at the end of the string; it's never found at the beginning. It is at this point where we may be scratching our heads wondering whether these strings are related in some way. If we try to reverse the character order and then Base64 decode, we see common subdomains but nothing that hints at where the flag might be.
+When we look at the strings closely we notice some have the padding (equal signs) in the leading section of the string. In Base64, the padding is only found at the end of the string; it's never found at the beginning. It is at this point where we may be scratching our heads wondering whether these strings are related in some way. If we try to reverse the character order and then Base64 decode we see the following:
+
+![Sample Base64 Decode](/images/ists_16_ctf/reverse_b64.png)
+
+After attempting to reverse then decode, we see common subdomains but nothing that hints at where the flag might be.
 
 Since, in Base64, padding characters are not required to be in every Base64 string it is a safe assumption that there are other strings polluting the DNS traffic, maybe even attempting to hide something else.
 
+This time we try to reverse every Base64 string that will yield a ASCII output. In Figure 4 we can identify many more strings most of which are subdomains and the remainder don't look useful.
+
+**Figure 4: Reversing All Base64**
+![Complete Base64 Decode](/images/ists_16_ctf/reverse_b64_full.png)
+
 ## The Evil Bit Discovery
 
-After some digging in the packets of the DNS requests that were not decoded to recognizable strings, we find that the corresponding DNS responses have the reserved/evil bit set. This might be the artifact we need to segregate the traffic.
+At this point, we become increasingly interested in the DNS request/responses that are not encoded subdomains. After some digging in the packets of the DNS requests that were not decoded to recognizable strings, we find that the corresponding DNS responses have the reserved/evil bit set (Figure 5).
 
-If we try to concatenate only the Base64 strings that has the Evil bit set in the corresponding DNS Response we have the following string:
+**Figure 5: DNS Response with Evil Bit set**
+![Evil Bit](/images/ists_16_ctf/evil_bit.png)
+
+This might be the artifact we need to segregate the traffic. If we try to concatenate only the Base64 strings that has the Evil bit set in the corresponding DNS Response we have the following string:
 
 ```
 UEsDBBQACQAIAGdwJkyljltuNQAAACcAAAAIAAAAZmxhZy50eHSMWzPKcAkyzhfVW/PzZ00zfVz6BljWF4g9upGjFAI5MsU1kZvSR/EKB7plANevbsEmLyjxslBLBwiljltuNQAAACcAAABQSwECHwAUAAkACABncCZMpY5bbjUAAAAnAAAACAAkAAAAAAAAACAAAAAAAAAAZmxhZy50eHQKACAAAAAAAAEAGAB+FuEAIYfTAbKLGD+rhdMBsosYP6uF0wFQSwUGAAAAAAEAAQBaAAAAawAAAAAA
 ```
 
-This time, when we attempt to decode the string we have some reassurance that this is what we are looking for. We see the file header "PK" indicating it is not only a file but the file type is a Zip and inside is the flag.
+**Figure 6: Decoding Base64 String**
+![Decoding Base64 String](/images/ists_16_ctf/base64_decode.png)
+
+This time, when we attempt to decode the string we have some reassurance that this is what we are looking for. We see the file header "PK" indicating it is not only a file but the file type is a Zip and inside is the flag (Figure 6).
 
 ## The Password Challenge
 
 Unfortunately, when trying to extract the flag we are prompted for a password. This is an encrypted Zip.
+
+**Figure 7: Encrypted Zip**
+![Encrypted Zip](/images/ists_16_ctf/encrypted_zip.png)
 
 Up until this point, all the interesting information was found in DNS traffic; we can assume the key can also be found somewhere in these packets. We can guess that everything in the packet capture has a purposed and there is no wasted data.
 
@@ -44,6 +68,9 @@ We have already established that the encoded subdomain strings were not part of 
 ## Solution
 
 We now can extract the text file and read the flag!
+
+**Figure 8: The Solution**
+![Solution](/images/ists_16_ctf/solution.png)
 
 ## Challenge Design Retrospective
 
