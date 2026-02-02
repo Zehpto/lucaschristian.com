@@ -1,0 +1,41 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.replace(/\/$/, '');
+
+const navItems = [
+  { name: 'home', path: '/' },
+  { name: 'blog', path: '/blog' },
+  { name: 'about', path: '/about' },
+];
+---
+
+<nav class="sticky top-0 z-50 backdrop-blur-lg bg-gray-950/80 border-b border-gray-800/50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center py-4">
+      <!-- Logo / Prompt -->
+      <a href="/" class="flex items-center space-x-2 group">
+        <span class="text-emerald-400 font-mono text-sm">lucas@security</span>
+        <span class="text-gray-500 font-mono text-sm">:</span>
+        <span class="text-blue-400 font-mono text-sm">~</span>
+        <span class="text-gray-500 font-mono text-sm">$</span>
+        <span class="text-gray-400 font-mono text-sm opacity-0 group-hover:opacity-100 transition-opacity">_</span>
+      </a>
+
+      <!-- Nav Links -->
+      <div class="flex space-x-1">
+        {navItems.map(({ name, path }) => (
+          <a
+            href={path}
+            class={`px-4 py-2 rounded-lg font-mono text-sm transition-all ${
+              currentPath === path || (path === '/blog' && currentPath.startsWith('/blog'))
+                ? 'text-emerald-400 bg-emerald-400/10'
+                : 'text-gray-400 hover:text-gray-100 hover:bg-gray-800/50'
+            }`}
+          >
+            {name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</nav>

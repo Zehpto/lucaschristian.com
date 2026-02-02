@@ -1,0 +1,104 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await post.render();
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+---
+
+<BaseLayout title={`${post.data.title} – Lucas Christian`} description={post.data.description}>
+  <Navigation />
+  
+  <main class="flex-1">
+    <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="mb-4">
+          <a 
+            href="/blog" 
+            class="text-emerald-400 hover:text-emerald-300 font-mono text-sm transition-colors inline-flex items-center"
+          >
+            ← back to blog
+          </a>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">
+          {post.data.title}
+        </h1>
+        
+        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+          <time class="font-mono">
+            {formatDate(post.data.pubDate)}
+          </time>
+          {post.data.updatedDate && (
+            <>
+              <span>·</span>
+              <time class="font-mono">
+                Updated {formatDate(post.data.updatedDate)}
+              </time>
+            </>
+          )}
+        </div>
+
+        {post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-4">
+            {post.data.tags.map((tag) => (
+              <span class="px-3 py-1 bg-gray-800/50 text-emerald-400 text-xs font-mono rounded-full border border-gray-700">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div class="h-1 w-20 bg-emerald-400 rounded-full mt-6"></div>
+      </header>
+
+      <!-- Content -->
+      <div class="prose prose-invert max-w-none prose-lg
+                  prose-headings:text-gray-100 
+                  prose-p:text-gray-400 prose-p:leading-relaxed
+                  prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline
+                  prose-strong:text-gray-200
+                  prose-code:text-emerald-400 prose-code:bg-gray-900 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+                  prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800 prose-pre:rounded-lg
+                  prose-img:rounded-lg prose-img:border prose-img:border-gray-800
+                  prose-ul:text-gray-400 prose-ol:text-gray-400
+                  prose-li:marker:text-emerald-400">
+        <Content />
+      </div>
+
+      <!-- Footer Navigation -->
+      <footer class="mt-16 pt-8 border-t border-gray-800">
+        <a 
+          href="/blog" 
+          class="text-emerald-400 hover:text-emerald-300 font-mono text-sm transition-colors inline-flex items-center"
+        >
+          ← back to all posts
+        </a>
+      </footer>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>

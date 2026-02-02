@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-950;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-800 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-700;
+  }
+}
+
+@layer components {
+  /* Terminal cursor blink animation */
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  .cursor-blink {
+    animation: blink 1s infinite;
+  }
+
+  /* Glow effect for interactive elements */
+  .glow-emerald {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  }
+
+  /* Code block styling */
+  .prose pre {
+    @apply bg-gray-900 border border-gray-800 rounded-lg p-4 overflow-x-auto;
+  }
+
+  .prose code {
+    @apply text-emerald-400 bg-gray-900 px-1.5 py-0.5 rounded text-sm;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0;
+  }
+
+  /* Link styling */
+  .prose a {
+    @apply text-emerald-400 hover:text-emerald-300 transition-colors underline decoration-emerald-400/30 hover:decoration-emerald-400;
+  }
+
+  /* Headings */
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    @apply text-gray-100 font-semibold;
+  }
+
+  .prose h1 {
+    @apply text-4xl mb-4;
+  }
+
+  .prose h2 {
+    @apply text-3xl mt-8 mb-3;
+  }
+
+  .prose h3 {
+    @apply text-2xl mt-6 mb-2;
+  }
+
+  /* Blog post card */
+  .post-card {
+    @apply bg-gray-900/50 border border-gray-800/50 rounded-lg p-6 
+           hover:border-emerald-400/50 hover:bg-gray-900/80 
+           transition-all duration-300 cursor-pointer
+           hover:shadow-lg hover:shadow-emerald-400/10;
+  }
+}

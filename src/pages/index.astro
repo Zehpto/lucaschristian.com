@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Lucas Christian – Security Engineer">
+  <Navigation />
+  
+  <main class="flex-1">
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+      <div class="space-y-6">
+        <!-- Terminal Prompt -->
+        <div class="flex items-center space-x-2 font-mono text-sm text-gray-500">
+          <span class="text-emerald-400">lucas@security</span>
+          <span>:</span>
+          <span class="text-blue-400">~</span>
+          <span>$</span>
+          <span class="text-gray-400">whoami</span>
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="text-5xl md:text-7xl font-bold">
+          <span class="text-gray-100">Lucas</span>
+          <span class="text-emerald-400"> Christian</span>
+        </h1>
+
+        <!-- Tagline -->
+        <p class="text-xl md:text-2xl text-gray-400 max-w-2xl">
+          Security engineer. I break things<span class="cursor-blink">_</span>
+        </p>
+
+        <!-- Description -->
+        <p class="text-gray-500 max-w-2xl leading-relaxed">
+          Staff Security Engineer specializing in offensive security, CTF challenges, 
+          and security research. RIT alumnus and founder of Team Contagion.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a 
+            href="/blog" 
+            class="px-6 py-3 bg-emerald-400 text-gray-950 font-mono text-sm font-medium rounded-lg hover:bg-emerald-300 transition-all hover:shadow-lg hover:shadow-emerald-400/50"
+          >
+            View Blog
+          </a>
+          <a 
+            href="/about" 
+            class="px-6 py-3 bg-gray-800/50 text-gray-100 font-mono text-sm font-medium rounded-lg border border-gray-700 hover:bg-gray-800 hover:border-emerald-400/50 transition-all"
+          >
+            About Me
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Posts Teaser -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-bold text-gray-100">Recent Posts</h2>
+        <a href="/blog" class="text-emerald-400 hover:text-emerald-300 font-mono text-sm transition-colors">
+          view all →
+        </a>
+      </div>
+      
+      <div class="text-gray-500 text-center py-12 border border-dashed border-gray-800 rounded-lg">
+        <p class="font-mono">Posts will appear here once migrated</p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
