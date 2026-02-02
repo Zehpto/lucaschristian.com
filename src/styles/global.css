@@ -64,21 +64,53 @@
     @apply text-emerald-400 hover:text-emerald-300 transition-colors underline decoration-emerald-400/30 hover:decoration-emerald-400;
   }
 
+  /* Paragraphs */
+  .prose p {
+    @apply mb-6 leading-relaxed;
+  }
+
+  .prose p + p {
+    @apply mt-0;
+  }
+
+  /* Lists */
+  .prose ul, .prose ol {
+    @apply mb-6 pl-6;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
   /* Headings */
   .prose h1, .prose h2, .prose h3, .prose h4 {
     @apply text-gray-100 font-semibold;
   }
 
   .prose h1 {
-    @apply text-4xl mb-4;
+    @apply text-4xl mb-6;
   }
 
   .prose h2 {
-    @apply text-3xl mt-8 mb-3;
+    @apply text-3xl mt-12 mb-4;
   }
 
   .prose h3 {
-    @apply text-2xl mt-6 mb-2;
+    @apply text-2xl mt-10 mb-4;
+  }
+
+  .prose h4 {
+    @apply text-xl mt-8 mb-3;
+  }
+
+  /* Images */
+  .prose img {
+    @apply my-8;
+  }
+
+  /* Blockquotes */
+  .prose blockquote {
+    @apply border-l-4 border-emerald-400 pl-4 my-6 italic text-gray-500;
   }
 
   /* Blog post card */
