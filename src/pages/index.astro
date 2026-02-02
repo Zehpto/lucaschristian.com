@@ -1,7 +1,20 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
 ---
 
 <BaseLayout title="Lucas Christian – Security Engineer">
@@ -33,15 +46,15 @@ import Footer from '../components/Footer.astro';
 
         <!-- Description -->
         <p class="text-gray-500 max-w-2xl leading-relaxed">
-          Staff Security Engineer specializing in offensive security, CTF challenges, 
-          and security research. RIT alumnus and founder of Team Contagion.
+          Staff Security Engineer specializing in enterprise security, CTF challenges, 
+          and offensive security. RIT alumnus and founder of Team Contagion.
         </p>
 
         <!-- CTA Buttons -->
         <div class="flex flex-wrap gap-4 pt-4">
           <a 
             href="/blog" 
-            class="px-6 py-3 bg-emerald-400 text-gray-950 font-mono text-sm font-medium rounded-lg hover:bg-emerald-300 transition-all hover:shadow-lg hover:shadow-emerald-400/50"
+            class="px-6 py-3 bg-emerald-500 text-gray-950 font-mono text-sm font-semibold rounded-lg hover:bg-emerald-400 transition-all hover:shadow-lg hover:shadow-emerald-400/50"
           >
             View Blog
           </a>
@@ -55,7 +68,7 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-    <!-- Recent Posts Teaser -->
+    <!-- Recent Posts -->
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-3xl font-bold text-gray-100">Recent Posts</h2>
@@ -64,8 +77,24 @@ import Footer from '../components/Footer.astro';
         </a>
       </div>
       
-      <div class="text-gray-500 text-center py-12 border border-dashed border-gray-800 rounded-lg">
-        <p class="font-mono">Posts will appear here once migrated</p>
+      <div class="grid gap-6">
+        {posts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="post-card block">
+            <article>
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+                <h3 class="text-xl font-bold text-gray-100">
+                  {post.data.title}
+                </h3>
+                <time class="text-gray-500 font-mono text-sm whitespace-nowrap">
+                  {formatDate(post.data.pubDate)}
+                </time>
+              </div>
+              <p class="text-gray-400 leading-relaxed">
+                {post.data.description}
+              </p>
+            </article>
+          </a>
+        ))}
       </div>
     </section>
   </main>
