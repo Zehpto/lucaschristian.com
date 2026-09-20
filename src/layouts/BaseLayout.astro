@@ -4,9 +4,25 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  structuredData?: Record<string, unknown>;
 }
 
-const { title, description = "Security engineer. I break things." } = Astro.props;
+const { title, description = "Lucas Christian, Staff Security Engineer specializing in Enterprise Security in the Greater Seattle Area.", structuredData } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', Astro.site);
+const person = {
+  '@type': 'Person', '@id': 'https://lucaschristian.com/#person',
+  name: 'Lucas Christian', url: 'https://lucaschristian.com/',
+  jobTitle: 'Staff Security Engineer, Enterprise Security',
+  worksFor: { '@type': 'Organization', name: 'Databricks' },
+  sameAs: ['https://www.linkedin.com/in/lucaschristian/', 'https://github.com/Zehpto'],
+  knowsAbout: ['Enterprise Security', 'Endpoint Detection and Response', 'SaaS Security Posture Management', 'Zero Trust', 'Security Automation']
+};
+const schema = structuredData || {
+  '@context': 'https://schema.org',
+  '@type': Astro.url.pathname.replace(/\/+$/, '') === '/about' ? 'ProfilePage' : 'WebPage',
+  url: canonical.href, name: title, description,
+  ...(Astro.url.pathname.startsWith('/blog') ? {about: person} : {mainEntity: person})
+};
 ---
 
 <!doctype html>
@@ -19,6 +35,17 @@ const { title, description = "Security engineer. I break things." } = Astro.prop
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     
+    <link rel="canonical" href={canonical} />
+    <link rel="describedby" href="/llms.txt" type="text/plain" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Lucas Christian" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

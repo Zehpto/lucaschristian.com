@@ -11,18 +11,19 @@ const posts = (await getCollection('blog'))
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
+    timeZone: 'UTC',
     month: 'long',
     day: 'numeric'
   });
 }
 ---
 
-<BaseLayout title="Lucas Christian – Security Engineer">
+<BaseLayout title="Lucas Christian | Staff Enterprise Security Engineer | Seattle" description="Lucas Christian is a Staff Security Engineer at Databricks in the Seattle area, specializing in enterprise security, endpoint protection, SSPM, and zero trust.">
   <Navigation />
   
   <main class="flex-1">
     <!-- Hero Section -->
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
       <div class="space-y-6">
         <!-- Terminal Prompt -->
         <div class="flex items-center space-x-2 font-mono text-sm text-gray-500">
@@ -41,22 +42,23 @@ function formatDate(date: Date) {
 
         <!-- Tagline -->
         <p class="text-xl md:text-2xl text-gray-400 max-w-2xl">
-          Security engineer. I break things<span class="cursor-blink">_</span>
+          Staff Security Engineer | Enterprise Security<span class="cursor-blink">_</span>
         </p>
 
         <!-- Description -->
         <p class="text-gray-500 max-w-2xl leading-relaxed">
-          Staff Security Engineer protecting security infrastructure at scale. 
-          CISSP & OSCP certified.
+          I’m Lucas Christian, a Staff Security Engineer at Databricks in the Greater Seattle Area.
+          I build and scale enterprise security programs across endpoint security, SaaS Security Posture Management (SSPM), zero-trust access, and security automation.
         </p>
 
+        <p class="font-mono text-sm text-emerald-300">CISSP &amp; OSCP certified · Databricks · Previously Uber and SIG</p>
         <!-- CTA Buttons -->
         <div class="flex flex-wrap gap-4 pt-4">
           <a 
-            href="/blog" 
+            href="https://drive.google.com/file/d/1GFiR3HzvKCexj-5M4steNWDCpsjiT_j9/preview"
             class="px-6 py-3 bg-emerald-500 text-gray-950 font-mono text-sm font-semibold rounded-lg hover:bg-emerald-400 transition-all hover:shadow-lg hover:shadow-emerald-400/50"
           >
-            View Blog
+            View Resume
           </a>
           <a 
             href="/about" 
@@ -64,14 +66,24 @@ function formatDate(date: Date) {
           >
             About Me
           </a>
+          <a href="https://www.linkedin.com/in/lucaschristian/" class="px-6 py-3 text-emerald-300 font-mono text-sm hover:underline">LinkedIn ↗</a>
         </div>
       </div>
     </section>
 
-    <!-- Recent Posts -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" aria-labelledby="expertise">
+      <h2 id="expertise" class="text-3xl font-bold mb-3">Security that works at enterprise scale.</h2>
+      <p class="text-gray-400 max-w-2xl mb-8">From platform ownership to architecture reviews, I turn security requirements into practical controls and sustainable programs.</p>
+      <div class="grid md:grid-cols-3 gap-4">
+        <article class="p-6 rounded-lg border border-gray-800 bg-gray-900/50"><p class="text-emerald-400 font-mono text-sm mb-4">01 / ENDPOINTS</p><h3 class="text-xl font-semibold mb-3">Endpoint security</h3><p class="text-gray-400">Enterprise Endpoint Detection and Response (EDR), device posture, and zero-trust access controls.</p></article>
+        <article class="p-6 rounded-lg border border-gray-800 bg-gray-900/50"><p class="text-emerald-400 font-mono text-sm mb-4">02 / SAAS</p><h3 class="text-xl font-semibold mb-3">SaaS security</h3><p class="text-gray-400">SSPM programs, third-party application assessments, and remediation in partnership with application owners.</p></article>
+        <article class="p-6 rounded-lg border border-gray-800 bg-gray-900/50"><p class="text-emerald-400 font-mono text-sm mb-4">03 / ENGINEERING</p><h3 class="text-xl font-semibold mb-3">Automation &amp; leadership</h3><p class="text-gray-400">AI-assisted architecture reviews, security roadmaps, technical mentoring, and secure M&amp;A integrations.</p></article>
+      </div>
+    </section>
+    <!-- Selected writing -->
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="flex items-center justify-between mb-8">
-        <h2 class="text-3xl font-bold text-gray-100">Recent Posts</h2>
+        <h2 class="text-3xl font-bold text-gray-100">Selected Writing</h2>
         <a href="/blog" class="text-emerald-400 hover:text-emerald-300 font-mono text-sm transition-colors">
           view all →
         </a>
