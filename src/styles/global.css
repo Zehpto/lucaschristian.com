@@ -127,3 +127,16 @@
            hover:shadow-lg hover:shadow-emerald-400/10;
   }
 }
+
+/* Legible supporting copy and accessible keyboard navigation. */
+.text-gray-500 { color: #9ca3af; }
+.text-gray-600 { color: #9ca3af; }
+a:focus-visible { outline: 2px solid #34d399; outline-offset: 5px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cursor-blink { animation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}
+
+.prose { overflow-wrap: anywhere; }
+.prose pre { max-width: 100%; }

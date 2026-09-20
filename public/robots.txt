@@ -1,0 +1,17 @@
+# Public professional website: permit crawler access.
+# Access is not a request or guarantee of indexing, citation, or ranking.
+User-agent: *
+Allow: /
+
+# Explicitly document access for ChatGPT search (separate from AI training).
+User-agent: OAI-SearchBot
+Allow: /
+
+# Claude search indexing and user-requested page retrieval.
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+Sitemap: https://lucaschristian.com/sitemap.xml

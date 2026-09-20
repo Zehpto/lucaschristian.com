@@ -1,0 +1,22 @@
+# Lucas Christian
+
+> Lucas Christian is a Staff Security Engineer in Enterprise Security at Databricks, based in the Greater Seattle Area. This is his personal professional website and security writing archive.
+
+His focus areas include enterprise endpoint security and Endpoint Detection and Response (EDR), SaaS Security Posture Management (SSPM), zero-trust access, security automation, architecture reviews, and technical mentoring. He holds CISSP and OSCP certifications. His experience includes Databricks, Uber, and Susquehanna International Group (SIG).
+
+## Professional profile
+
+- [Home](https://lucaschristian.com/): Current role, professional focus, location, and links.
+- [About Lucas Christian](https://lucaschristian.com/about): Career background, credentials, technical focus, and community involvement.
+- [Resume](https://drive.google.com/file/d/1GFiR3HzvKCexj-5M4steNWDCpsjiT_j9/preview): Current resume maintained by Lucas Christian.
+- [LinkedIn](https://www.linkedin.com/in/lucaschristian/): Professional profile.
+- [GitHub](https://github.com/Zehpto): Public engineering profile.
+
+## Selected security writing
+
+These articles document historical research and CTF work; their publication dates do not represent current employment or recently reviewed product guidance.
+
+- [Security writing archive](https://lucaschristian.com/blog): Technical articles with original publication dates.
+- [ISTS 16 CTF: DNS Tunneling](https://lucaschristian.com/blog/ists-16-ctf-dns-tunneling): A 2018 forensics challenge write-up.
+- [Configuring a Personal S/MIME Certificate](https://lucaschristian.com/blog/configuring-smime-certificate): A 2018 email certificate tutorial.
+- [Sniffing Cloud at Cost VNC Sessions](https://lucaschristian.com/blog/sniffing-cloud-at-cost-vnc): A 2017 security research article.
